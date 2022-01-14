@@ -1,0 +1,141 @@
+body
+{
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #f4f0e5;
+}
+h1, h3
+{
+    font-family: "Segoe Script";
+}
+p
+{
+    font-family: "Gabriola";
+    font-size: 1.6em;
+}
+ul, li
+{
+    font-family: "Gabriola";
+    font-size: 1.3em;
+}
+input
+{
+    margin: 8px;
+}
+.navbar
+{
+    font-family: "Segoe Script";
+}
+
+.page_width
+{
+    width: 100%;
+    margin: 0 auto;
+}
+
+.nice_header
+{
+    font-family: "Ink Free";
+    background: url("images/cat_header.jpg") no-repeat;
+    text-align: center;
+    width: 1197px;
+    min-height: 198px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 4px #1c1a19;
+}
+
+footer
+{
+    height: 234px;
+    background: url(images/cat_paws.png) repeat-x;
+    margin: 0 auto;
+}
+.btn-light, .btn-light:hover, .btn-light:active, .btn-light:visited {
+    background-color: #ede8d9 !important;
+}
+.btn-secondary, .btn-secondary:hover, .btn-secondary:active, .btn-secondary:visited {
+    background-color: #644646 !important;
+}
+.card
+{
+    border-color: seagreen;
+    background-color: lightgray;
+}
+.vignette
+{
+    max-width: 24%;
+    min-width: 290px;
+    background-color: #ede8d9;
+    border: 1px dashed #644646;
+    border-radius: 5px;
+    box-shadow: 0px 4px 4px #1c1a19;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+.vignette img
+{
+    text-align: center;
+}
+.list_of_vignettes
+{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+
+.caracteristique_chat
+{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.separateur-full
+{
+    background: url("images/sep.png");
+    height: 12px;
+    margin-bottom: 1px;
+}
+.form-flex
+{
+    display: flex;
+    justify-content: space-between;
+}
+.nice_menu
+{
+    display: flex;
+
+}
+.image_menu
+{
+    max-width: 100%;
+    height: auto;
+}
+
+@media screen and (max-width:766px) {
+    .nice_menu
+    {
+        display: block;
+        margin: 0 auto;
+    }
+    .nice_header
+    {
+        display: none;
+    }
+    .google_iframe
+    {
+        display: none;
+    }
+    .vignette
+    {
+        max-width: 100%;
+    }
+    .form-flex
+    {
+        display: block;
+    }
+}
