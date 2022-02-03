@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="icon" href="{{ url_for('static', filename='website_images/cat_ico.png')}}" />
+    <title>Association des chats de la street</title>
+</head>
+
+<body>
+<div class="page_width">
+    <header>
+        {% set active_page = "login" %}
+        {% include 'header.html' %}
+    </header>
+    <section>
+        <h1>Ajouter un chat</h1>
+        <div class="separateur-full"></div>
+        </br>
+        <div class="form-flex" style="justify-content: space-evenly ">
+            <div>
+        <form method="POST" action="{{url_for('chat_ajoute')}}">
+
+            <p><label for="nom">Nom</label></p>
+            <p><input type="text" name="nom" id="nom" maxlength="60" required /></p>
+
+            <p><label for="sexe">Sexe</label></p>
+            <p><input type="text" name="sexe" id="sexe" maxlength="60" required /></p>
+
+            <p><label for="naissance">Date de naissance</label></p>
+            <p><input type="text" name="naissance" id="naissance" maxlength="60" placeholder="AAAA-MM-JJ" required /></p>
+
+            <p><label for="race">Race</label></p>
+            <p><input type="text" name="race" id="race" maxlength="60" required /></p>
+
+            <p><label for="robe">Robe</label></p>
+            <p><input type="text" name="robe" id="robe" maxlength="60" required /></p>
+
+            <p><label for="vaccin">Vaccin</label></p>
+            <p><input type="text" name="vaccin" id="vaccin" maxlength="60" required /></p>
+            </div>
+            <div>
+            <p><label for="sterilisation">Sterilisation</label></p>
+            <p><input type="text" name="sterilisation" id="sterilisation" maxlength="60" required /></p>
+
+            <p><label for="identification">Identification</label></p>
+            <p><input type="text" name="identification" id="identification" maxlength="60" required /></p>
+
+            <p><label for="deparasitage">Déparasitage</label></p>
+            <p><input type="text" name="deparasitage" id="deparasitage" maxlength="60" required /></p>
+
+            <p><label for="commentaire">Commentaire</label></p>
+            <p><input type="text" name="commentaire" id="commentaire" maxlength="3000" required /></p>
+
+            <p><label for="photo">Photo de profil</label></p>
+            <p><input type="text" name="photo" id="photo" maxlength="60" required /></p>
+
+            <p><label for="carousel">Photos pour carousel</label></p>
+            <p><input type="text" name="carousel" id="carousel" maxlength="300" placeholder="Séparées par des virgules sans espaces." required /></p>
+
+            <input type="submit" class="btn btn-secondary" style="font-size: 1.3em; font-family: 'Segoe Script'" name="" value="Ajouter le chat" />
+        </form>
+            </div>
+        </div>
+        <div style="text-align: center">
+        <a href="http://127.0.0.1:5000/profile" class="btn btn-secondary" style="padding-top: 20px"><h3>Retour au profil</h3></a>
+        </div>
+    </section>
+    <footer>
+        {% include 'footer.html' %}
+    </footer>
+</div>
+<!-- Optional JavaScript -->
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+<script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>

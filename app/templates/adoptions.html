@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="icon" href="{{ url_for('static', filename='website_images/cat_ico.png')}}" />
+    <title>Association des chats de la street</title>
+</head>
+<body>
+<div class="page_width">
+<header>
+    {% set active_page = "adoptions" %}
+    {% include 'header.html' %}
+</header>
+<section>
+    <article>
+        <h1>Nos adoptions</h1>
+        <div class="separateur-full"></div>
+        </br>
+        <div class="list_of_vignettes">
+            {%for i in range(0, cat_list_len)%}
+            <div class="vignette">
+                <img src="{{ url_for ('static', filename='adoptions_images/' ~ cat_list['data'][i]['photo']) }}"
+                style="width:100%; height:180px; max-width: 300px" alt="image_chat" />
+                <h2 style="text-align: center;background-color: #644646;color: white; font-family:Segoe Script">{{cat_list['data'][i]['nom']}}</h2>
+                <div class="caracteristique_chat">
+                    <div>
+                        <p>{{cat_list['data'][i]['sexe']}}</p>
+                        <p>{{cat_list['data'][i]['naissance']}}</p>
+                        <p>{{cat_list['data'][i]['race']}}</p>
+                        <p>{{cat_list['data'][i]['robe']}}</p>
+                    </div>
+                    <div><img src="{{ url_for ('static', filename='website_images/sep_vertical.png')}}" /></div>
+                    <div>
+                        <p><b>{{cat_list['data'][i]['vaccin']}}</b></p>
+                        <p><b>{{cat_list['data'][i]['sterilisation']}}</b></p>
+                        <p><b>{{cat_list['data'][i]['identification']}}</b></p>
+                        <p><b>{{cat_list['data'][i]['deparasitage']}}</b></p>
+                    </div>
+                </div>
+                <div>
+                    <p style="padding-left: 15px;padding-right: 15px;">
+                        {{cat_list['data'][i]['commentaire']}}
+                    </p>
+                    <div style="text-align: center"><a class="btn btn-secondary" href="http://127.0.0.1:5000/adoptions/{{cat_list['data'][i]['id']}}" >Fiche détaillée</a></div>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+
+    </article>
+</section>
+    <div class="separateur-full"></div>
+<footer>
+    {% include 'footer.html' %}
+</footer>
+</div>
+<!-- Optional JavaScript -->
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+<script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous">
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>

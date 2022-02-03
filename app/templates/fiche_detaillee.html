@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+    <link rel="icon" href="{{ url_for('static', filename='website_images/cat_ico.png')}}"/>
+    <title>Association des chats de la street</title>
+</head>
+<body>
+<div class="page_width">
+<header>
+    {% set active_page = "adoptions" %}
+    {% include 'header.html' %}
+</header>
+<section>
+    <article>
+        <h1>Nos adoptions</h1>
+        <div class="separateur-full"></div>
+        </br>
+            <div class="vignette_seule">
+                <h2 style="text-align: center;background-color: #644646;color: white; font-family:Segoe Script">{{nom}}</h2>
+                <div class="caracteristique_chat">
+                    <div>
+                        <p>{{sexe}}</p>
+                        <p>{{naissance}}</p>
+                        <p>{{race}}</p>
+                        <p>{{robe}}</p>
+                    </div>
+                    <div><img src="{{ url_for ('static', filename='website_images/sep_vertical.png')}}" /></div>
+                    <div>
+                        <p><b>{{vaccin}}</b></p>
+                        <p><b>{{sterilisation}}</b></p>
+                        <p><b>{{identification}}</b></p>
+                        <p><b>{{deparasitage}}</b></p>
+                    </div>
+                </div>
+                <div>
+                    <p style="padding-left: 15px;padding-right: 15px;">
+                        {{commentaire}}
+                    </p>
+
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                      <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                      </ol>
+                      <div class="carousel-inner">
+                          {%for i in range(carousel_cat_len)%}
+                        <div class="carousel-item {% if i == 0 %}active{% endif %}">
+                          <img class="d-block w-100" src="{{ url_for ('static', filename='adoptions_images/' ~ carousel_cat[i])}}"
+                              style="max-height: 600px" alt="SLIDE">
+                        </div>
+                          {%endfor%}
+                      </div>
+                      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                      </a>
+                      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                      </a>
+                    </div>
+                </div>
+            </div>
+    </article>
+    </br>
+    <div style="text-align: center;">
+        <a href="http://127.0.0.1:5000/adoptions" class="btn btn-secondary" style="padding-top: 20px"><h3>Retour à la page des adoptions</h3></a>
+    </div>
+</section>
+    <div style="margin-bottom: 20px"></div>
+    <div class="separateur-full"></div>
+<footer>
+    {% include 'footer.html' %}
+</footer>
+</div>
+<!-- Optional JavaScript -->
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+<script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous">
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+    <link rel="icon" href="{{ url_for('static', filename='website_images/cat_ico.png')}}"/>
+    <title>Association des chats de la street</title>
+</head>
+
+<body>
+<div class="page_width">
+    <header>
+        {% set active_page = "index" %}
+        {% include 'header.html' %}
+    </header>
+    <div class="nice_header">
+        </br></br>
+        <h1>Bienvenue sur le site de l'association</h1>
+        <h1>des chats de la street</h1>
+    </div>
+    </br>
+    <div class="separateur-full"></div>
+    </br>
+    <section>
+        <div class="nice_menu">
+            <div class="image_menu"><a href="http://127.0.0.1:5000/adoptions"><img src="{{ url_for('static', filename='website_images/1.jpg')}}" height="250" width="400" /></a></div>
+            <div class="image_menu"><a href="http://127.0.0.1:5000/soutenir"><img src="{{ url_for('static', filename='website_images/2.jpg')}}" height="250" width="400" /></a></div>
+            <div class="image_menu"><a href="http://127.0.0.1:5000/association"><img src="{{ url_for('static', filename='website_images/3.jpg')}}" height="250" width="400" /></a></div>
+        </div>
+
+        <article>
+            </br>
+            <h1>Notre association</h1>
+            <div class="separateur-full"></div>
+            </br>
+            <p>Fondée fin XXXX, l'association loi 1901 <b>L'association des chats de la street</b> a pour but la protection animale.</p>
+            <p>Tous les animaux pris en charge sont identifiés, vaccinés, stérilisés à partir de 6 mois et placés en famille d'accueil dans l'attente d'être adoptés.</p>
+            <p>Les animaux trop sauvages pour être proposés à l'adoption sont relâchés sur des lieux de vie sécurisés et nourris régulièrement par nos bénévoles.</p>
+            <p><i>Association enregistrée au Répertoire National des Associations (RNA) sous le numéro XXXXXXXXXX.</i></p>
+        </article>
+        <article>
+            <h1>Nous contacter</h1>
+            <div class="separateur-full"></div>
+            </br>
+            <a href="http://127.0.0.1:5000/contact" class="btn btn-light"><img src="{{ url_for('static', filename='website_images/cat.gif')}}"></br>Cliquez ici pour accéder au formulaire de contact</a>
+        </article>
+    </section>
+    <footer>
+        {% include 'footer.html' %}
+    </footer>
+</div>
+
+<script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous">
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
