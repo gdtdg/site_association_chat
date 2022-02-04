@@ -6,10 +6,15 @@ from flask import render_template
 from flask import request
 from flask import url_for
 
-from app.connect_bdd import select_one_cat, select_all_cats, insert_message, select_user,\
+from app.connect_bdd import select_one_cat, select_all_cats, insert_message, select_user, \
     insert_chat, select_all_messages, delete_message
 
 app = Flask(__name__)
+
+
+@app.route('/')
+def root():
+    return redirect(url_for('index'))
 
 
 @app.route('/index/')
@@ -32,14 +37,6 @@ def association():
     return render_template('association.html')
 
 
-@app.route('/adoptions/')
-def adoptions():
-    cat_list = select_all_cats()
-    cat_list_len = len(cat_list['data'])
-    images = os.listdir(os.path.join(app.static_folder, 'adoptions_images'))
-    return render_template('adoptions.html', cat_list_len=cat_list_len, cat_list=cat_list, images=images)
-
-
 @app.route('/actualites/')
 def actualites():
     return render_template('login.html')
@@ -58,6 +55,14 @@ def contact():
 @app.route('/a_propos/')
 def a_propos():
     return render_template('a_propos.html')
+
+
+@app.route('/adoptions/')
+def adoptions():
+    cat_list = select_all_cats()
+    cat_list_len = len(cat_list['data'])
+    images = os.listdir(os.path.join(app.static_folder, 'adoptions_images'))
+    return render_template('adoptions.html', cat_list_len=cat_list_len, cat_list=cat_list, images=images)
 
 
 @app.route('/adoptions/<id_chat>')
@@ -98,17 +103,22 @@ def form():
 session = []
 
 
-@app.route('/login/', methods=["GET", "POST"])
+@app.route('/login/', methods=["GET"])
 def login():
     if len(session) != 0:
         return redirect(url_for('profile'))
+    return render_template('login.html')
+
+
+@app.route('/login/', methods=["POST"])
+def login_post():
     current_user = request.form.get("username")
     current_password = request.form.get("password")
     if select_user(current_user, current_password):
         if current_user not in session:
             session.append(current_user)
         return redirect(url_for('profile'))
-    return render_template('login.html')
+    return redirect(url_for('login'))
 
 
 @app.route('/profile/')
@@ -117,6 +127,7 @@ def profile():
         return render_template('profile.html')
     else:
         return render_template('login.html')
+
 
 @app.route('/logout/')
 def logout():
@@ -145,7 +156,7 @@ def chat_ajoute():
     deparasitage = request.form.get("deparasitage")
     commentaire = request.form.get("commentaire")
     photo = request.form.get("photo")
-    carousel = request.form.get("carousel")
+    carousel = request.form.getlist("carousel")
     insert_chat(nom, sexe, naissance, race, robe, vaccin, sterilisation, identification, deparasitage, commentaire,
                 photo, carousel)
     return render_template('chat_ajoute.html', nom=nom)
@@ -160,6 +171,7 @@ def messages_contact():
                                messages_list=messages_list)
     else:
         return render_template('login.html')
+
 
 @app.route('/message_supprime/', methods=["POST"])
 def message_supprime():

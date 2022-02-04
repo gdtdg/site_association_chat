@@ -35,7 +35,7 @@ def select_all_cats():
 def select_all_messages():
     connection = mysql.connector.connect(host='localhost', user='root', passwd='root', database='assoc_chat')
     cursor = connection.cursor()
-    query = "SELECT id, nom, prenom, adresse, code_postal, ville,\
+    query = "SELECT id, nom, prenom, adresse, code_postal, ville, \
          email, telephone, objet, message, timestamp FROM message_contact"
 
     cursor.execute(query)
