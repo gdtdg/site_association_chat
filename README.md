@@ -12,5 +12,11 @@ Python packages required : ```pip install -r requirements.txt```
 
 ## Instructions
 
-TODO
 Install the database?
+TODO
+
+#### How to run the flask server:
+
+Setup the flask environment: `$env:FLASK_APP='app/serveur'`
+
+then run the flask server `py -m flask run`
