@@ -8,6 +8,9 @@ A fictional cat protection website.
 
 Python 3.9 required.
 
+Python packages required : ```pip install -r requirements.txt```
+
 ## Instructions
 
 TODO
+Install the database?
