@@ -17,6 +17,6 @@ TODO
 
 #### How to run the flask server:
 
-Setup the flask environment: `$env:FLASK_APP='app/serveur'`
+Setup the flask environment for Windows: `$env:FLASK_APP='app/serveur'`
 
 then run the flask server `py -m flask run`

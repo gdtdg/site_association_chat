@@ -21,25 +21,25 @@
         <div class="separateur-full"></div>
         </br>
             <div class="vignette_seule">
-                <h2 style="text-align: center;background-color: #644646;color: white; font-family:Segoe Script">{{nom}}</h2>
+                <h2 style="text-align: center;background-color: #644646;color: white; font-family:Segoe Script">{{my_cat.nom}}</h2>
                 <div class="caracteristique_chat">
                     <div>
-                        <p>{{sexe}}</p>
-                        <p>{{naissance}}</p>
-                        <p>{{race}}</p>
-                        <p>{{robe}}</p>
+                        <p>{{my_cat.sexe}}</p>
+                        <p>{{my_cat.naissance}}</p>
+                        <p>{{my_cat.race}}</p>
+                        <p>{{my_cat.robe}}</p>
                     </div>
                     <div><img src="{{ url_for ('static', filename='website_images/sep_vertical.png')}}" /></div>
                     <div>
-                        <p><b>{{vaccin}}</b></p>
-                        <p><b>{{sterilisation}}</b></p>
-                        <p><b>{{identification}}</b></p>
-                        <p><b>{{deparasitage}}</b></p>
+                        <p><b>{{my_cat.vaccin}}</b></p>
+                        <p><b>{{my_cat.sterilisation}}</b></p>
+                        <p><b>{{my_cat.identification}}</b></p>
+                        <p><b>{{my_cat.deparasitage}}</b></p>
                     </div>
                 </div>
                 <div>
                     <p style="padding-left: 15px;padding-right: 15px;">
-                        {{commentaire}}
+                        {{my_cat.commentaire}}
                     </p>
 
                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">

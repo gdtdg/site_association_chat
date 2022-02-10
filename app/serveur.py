@@ -1,15 +1,13 @@
 import os
 
-from flask import Flask
 from flask import redirect
 from flask import render_template
 from flask import request
 from flask import url_for
 
-from app.connect_bdd import select_one_cat, select_all_cats, insert_message, select_user, \
+from app.connect_bdd import select_all_cats, insert_message, select_user, \
     insert_chat, select_all_messages, delete_message
-
-app = Flask(__name__)
+from app.orm_sql_alchemy import db, Chat, app
 
 
 @app.route('/')
@@ -67,14 +65,10 @@ def adoptions():
 
 @app.route('/adoptions/<id_chat>')
 def adoption(id_chat):
-    my_cat = select_one_cat(id_chat)
-    carousel_cat = list(my_cat['carousel'].split(','))
+    my_cat = db.session.query(Chat).filter_by(id=id_chat).first()
+    carousel_cat = list(my_cat.carousel.split(','))
     carousel_cat_len = len(carousel_cat)
-    return render_template('fiche_detaillee.html', nom=my_cat['nom'], sexe=my_cat['sexe'],
-                           naissance=my_cat['naissance'], race=my_cat['race'], robe=my_cat['robe'],
-                           vaccin=my_cat['vaccin'], sterilisation=my_cat['sterilisation'],
-                           identification=my_cat['identification'], deparasitage=my_cat['deparasitage'],
-                           commentaire=my_cat['commentaire'], photo=my_cat['photo'], carousel_cat_len=carousel_cat_len,
+    return render_template('fiche_detaillee.html', my_cat=my_cat, carousel_cat_len=carousel_cat_len,
                            carousel_cat=carousel_cat)
 
 
