@@ -44,11 +44,3 @@ class MessageContact(db.Model):
     timestamp = db.Column(db.TIMESTAMP, nullable=False)  # Aucune idée si ça marche
 
 
-if __name__ == "__main__":
-    # db.create_all()
-    # user_test = User(username='test', password='test')
-    # db.session.add(user_test)
-    # db.session.commit()
-    test_select_user = db.session.query(User).filter_by(username='test').filter_by(password="test").first()
-    print(test_select_user)
-

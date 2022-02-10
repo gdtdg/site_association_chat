@@ -21,31 +21,31 @@
         <div class="separateur-full"></div>
         </br>
         <div class="list_of_vignettes">
-            {%for i in range(0, cat_list_len)%}
+            {%for cat in cat_list%}
             <div class="vignette">
-                <img src="{{ url_for ('static', filename='adoptions_images/' ~ cat_list[i].photo) }}"
+                <img src="{{ url_for ('static', filename='adoptions_images/' ~ cat.photo) }}"
                 style="width:100%; height:180px; max-width: 300px" alt="image_chat" />
-                <h2 style="text-align: center;background-color: #644646;color: white; font-family:Segoe Script">{{cat_list[i].nom}}</h2>
+                <h2 style="text-align: center;background-color: #644646;color: white; font-family:Segoe Script">{{cat.nom}}</h2>
                 <div class="caracteristique_chat">
                     <div>
-                        <p>{{cat_list[i].sexe}}</p>
-                        <p>{{cat_list[i].naissance}}</p>
-                        <p>{{cat_list[i].race}}</p>
-                        <p>{{cat_list[i].robe}}</p>
+                        <p>{{cat.sexe}}</p>
+                        <p>{{cat.naissance}}</p>
+                        <p>{{cat.race}}</p>
+                        <p>{{cat.robe}}</p>
                     </div>
                     <div><img src="{{ url_for ('static', filename='website_images/sep_vertical.png')}}" /></div>
                     <div>
-                        <p><b>{{cat_list[i].vaccin}}</b></p>
-                        <p><b>{{cat_list[i].sterilisation}}</b></p>
-                        <p><b>{{cat_list[i].identification}}</b></p>
-                        <p><b>{{cat_list[i].deparasitage}}</b></p>
+                        <p><b>{{cat.vaccin}}</b></p>
+                        <p><b>{{cat.sterilisation}}</b></p>
+                        <p><b>{{cat.identification}}</b></p>
+                        <p><b>{{cat.deparasitage}}</b></p>
                     </div>
                 </div>
                 <div>
                     <p style="padding-left: 15px;padding-right: 15px;">
-                        {{cat_list[i].commentaire}}
+                        {{cat.commentaire}}
                     </p>
-                    <div style="text-align: center"><a class="btn btn-secondary" href="http://127.0.0.1:5000/adoptions/{{cat_list[i].id}}" >Fiche détaillée</a></div>
+                    <div style="text-align: center"><a class="btn btn-secondary" href="http://127.0.0.1:5000/adoptions/{{cat.id}}" >Fiche détaillée</a></div>
                 </div>
             </div>
             {%endfor%}

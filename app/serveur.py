@@ -57,9 +57,8 @@ def a_propos():
 @app.route('/adoptions/')
 def adoptions():
     cat_list = db.session.query(Chat).all()
-    cat_list_len = len(cat_list)
     images = os.listdir(os.path.join(app.static_folder, 'adoptions_images'))
-    return render_template('adoptions.html', cat_list_len=cat_list_len, cat_list=cat_list, images=images)
+    return render_template('adoptions.html', cat_list=cat_list, images=images)
 
 
 @app.route('/adoptions/<id_chat>')
@@ -159,9 +158,7 @@ def chat_ajoute():
 def messages_contact():
     if len(session) != 0:
         messages_list = db.session.query(MessageContact).all()
-        messages_list_len = len(messages_list)
-        return render_template('messages_contact.html', messages_list_len=messages_list_len,
-                               messages_list=messages_list)
+        return render_template('messages_contact.html', messages_list=messages_list)
     else:
         return render_template('login.html')
 

@@ -20,25 +20,25 @@
         <h1>Messages contact</h1>
         <div class="separateur-full"></div>
         </br>
-        {%for i in range(0, messages_list_len)%}
+        {%for message in messages_list%}
         <table>
             <tr>
-                <td rowspan="2">Message n°{{messages_list[i].id}}</td>
-                <td>{{messages_list[i].nom}}</td>
-                <td>{{messages_list[i].prenom}}</td>
-                <td>{{messages_list[i].adresse}}</td>
-                <td>{{messages_list[i].code_postal}}</td>
-                <td>{{messages_list[i].ville}}</td>
+                <td rowspan="2">Message n°{{message.id}}</td>
+                <td>{{message.nom}}</td>
+                <td>{{message.prenom}}</td>
+                <td>{{message.adresse}}</td>
+                <td>{{message.code_postal}}</td>
+                <td>{{message.ville}}</td>
             </tr>
             <tr>
-                <td>{{messages_list[i].email}}</td>
-                <td>{{messages_list[i].telephone}}</td>
-                <td>{{messages_list[i].objet}}</td>
-                <td>{{messages_list[i].timestamp}}</td>
+                <td>{{message.email}}</td>
+                <td>{{message.telephone}}</td>
+                <td>{{message.objet}}</td>
+                <td>{{message.timestamp}}</td>
 
             </tr>
             <tr>
-                <td colspan="6">{{messages_list[i].message}}</td>
+                <td colspan="6">{{message.message}}</td>
              </tr>
         </table>
         <div class="separateur-simple"></div>
