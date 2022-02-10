@@ -41,6 +41,6 @@ class MessageContact(db.Model):
     telephone = db.Column(db.String(100), nullable=False)
     objet = db.Column(db.String(100), nullable=False)
     message = db.Column(db.String(3000), nullable=False)
-    timestamp = db.Column(db.TIMESTAMP, nullable=False)  # Aucune idée si ça marche
+    timestamp = db.Column(db.TIMESTAMP, nullable=False)
 
 

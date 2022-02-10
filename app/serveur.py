@@ -65,7 +65,8 @@ def adoptions():
 def adoption(id_chat):
     my_cat = db.session.query(Chat).filter_by(id=id_chat).first()
     carousel_cat = list(my_cat.carousel.split(','))
-    carousel_cat_len = len(carousel_cat)
+    carousel_cat_len = len(carousel_cat)          # Obligé de garder cette variable pour que le carousel fonctionne.
+                                                  # Sinon la class 'carousel-item active' bloque le carousel.
     return render_template('fiche_detaillee.html', my_cat=my_cat, carousel_cat_len=carousel_cat_len,
                            carousel_cat=carousel_cat)
 
