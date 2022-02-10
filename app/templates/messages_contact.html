@@ -23,22 +23,22 @@
         {%for i in range(0, messages_list_len)%}
         <table>
             <tr>
-                <td rowspan="2">Message n°{{messages_list['data'][i]['id']}}</td>
-                <td>{{messages_list['data'][i]['nom']}}</td>
-                <td>{{messages_list['data'][i]['prenom']}}</td>
-                <td>{{messages_list['data'][i]['adresse']}}</td>
-                <td>{{messages_list['data'][i]['code_postal']}}</td>
-                <td>{{messages_list['data'][i]['ville']}}</td>
+                <td rowspan="2">Message n°{{messages_list[i].id}}</td>
+                <td>{{messages_list[i].nom}}</td>
+                <td>{{messages_list[i].prenom}}</td>
+                <td>{{messages_list[i].adresse}}</td>
+                <td>{{messages_list[i].code_postal}}</td>
+                <td>{{messages_list[i].ville}}</td>
             </tr>
             <tr>
-                <td>{{messages_list['data'][i]['email']}}</td>
-                <td>{{messages_list['data'][i]['telephone']}}</td>
-                <td>{{messages_list['data'][i]['objet']}}</td>
-                <td>{{messages_list['data'][i]['timestamp']}}</td>
+                <td>{{messages_list[i].email}}</td>
+                <td>{{messages_list[i].telephone}}</td>
+                <td>{{messages_list[i].objet}}</td>
+                <td>{{messages_list[i].timestamp}}</td>
 
             </tr>
             <tr>
-                <td colspan="6">{{messages_list['data'][i]['message']}}</td>
+                <td colspan="6">{{messages_list[i].message}}</td>
              </tr>
         </table>
         <div class="separateur-simple"></div>

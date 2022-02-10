@@ -5,9 +5,8 @@ from flask import render_template
 from flask import request
 from flask import url_for
 
-from app.connect_bdd import select_all_cats, insert_message, select_user, \
-    insert_chat, select_all_messages, delete_message
-from app.orm_sql_alchemy import db, Chat, app
+from app.orm_insert_delete import insert, delete
+from app.orm_tables import db, app, Chat, MessageContact, User
 
 
 @app.route('/')
@@ -57,8 +56,8 @@ def a_propos():
 
 @app.route('/adoptions/')
 def adoptions():
-    cat_list = select_all_cats()
-    cat_list_len = len(cat_list['data'])
+    cat_list = db.session.query(Chat).all()
+    cat_list_len = len(cat_list)
     images = os.listdir(os.path.join(app.static_folder, 'adoptions_images'))
     return render_template('adoptions.html', cat_list_len=cat_list_len, cat_list=cat_list, images=images)
 
@@ -72,12 +71,6 @@ def adoption(id_chat):
                            carousel_cat=carousel_cat)
 
 
-@app.route('/adoptions/json')
-def adoption_json():
-    cat_list = select_all_cats()
-    return cat_list
-
-
 @app.route('/form/', methods=["POST"])
 def form():
     nom = request.form.get("nom")
@@ -89,9 +82,11 @@ def form():
     telephone = request.form.get("telephone")
     objet = request.form.get("objet")
     message = request.form.get("message")
-    insert_message(nom, prenom, adresse, code_postal, ville, email, telephone,
-                   objet, message)
-    return render_template('message_contact_envoye.html', nom=nom, prenom=prenom)
+    message_insert = MessageContact(nom=nom, prenom=prenom, adresse=adresse,
+                                    code_postal=code_postal, ville=ville, email=email,
+                                    telephone=telephone, objet=objet, message=message)
+    insert(message_insert)
+    return render_template('message_contact_envoye.html', message_insert=message_insert)
 
 
 session = []
@@ -108,7 +103,7 @@ def login():
 def login_post():
     current_user = request.form.get("username")
     current_password = request.form.get("password")
-    if select_user(current_user, current_password):
+    if db.session.query(User).filter_by(username=current_user).filter_by(password=current_password).first():
         if current_user not in session:
             session.append(current_user)
         return redirect(url_for('profile'))
@@ -151,16 +146,20 @@ def chat_ajoute():
     commentaire = request.form.get("commentaire")
     photo = request.form.get("photo")
     carousel = request.form.getlist("carousel")
-    insert_chat(nom, sexe, naissance, race, robe, vaccin, sterilisation, identification, deparasitage, commentaire,
-                photo, carousel)
-    return render_template('chat_ajoute.html', nom=nom)
+    chat_insert = Chat(nom=nom, sexe=sexe, naissance=naissance,
+                       race=race, robe=robe, vaccin=vaccin,
+                       sterilisation=sterilisation, identification=identification,
+                       deparasitage=deparasitage, commentaire=commentaire,
+                       photo=photo, carousel=carousel)
+    insert(chat_insert)
+    return render_template('chat_ajoute.html', chat_insert=chat_insert)
 
 
 @app.route('/messages_contact/')
 def messages_contact():
     if len(session) != 0:
-        messages_list = select_all_messages()
-        messages_list_len = len(messages_list['data'])
+        messages_list = db.session.query(MessageContact).all()
+        messages_list_len = len(messages_list)
         return render_template('messages_contact.html', messages_list_len=messages_list_len,
                                messages_list=messages_list)
     else:
@@ -170,5 +169,6 @@ def messages_contact():
 @app.route('/message_supprime/', methods=["POST"])
 def message_supprime():
     id_message = request.form.get("id_message")
-    delete_message(id_message)
-    return render_template('message_supprime.html', id_message=id_message)
+    message_delete = db.session.query(MessageContact).filter_by(id=id_message).first()
+    delete(message_delete)
+    return render_template('message_supprime.html', message_delete=message_delete)

@@ -1,3 +1,5 @@
+# Tout le contenu de ce fichier ne sert plus, il a été remplacé par l'ORM.
+
 import mysql.connector
 
 

@@ -49,10 +49,6 @@ if __name__ == "__main__":
     # user_test = User(username='test', password='test')
     # db.session.add(user_test)
     # db.session.commit()
-    test = User.query.all()
-    print(test)
-    chat_nom = db.session.query(Chat).filter_by(id=1).first()
-    print(chat_nom.nom)
-    print(chat_nom.carousel)
-    all_cats = db.session.query(Chat).all()
-    print(all_cats)
+    test_select_user = db.session.query(User).filter_by(username='test').filter_by(password="test").first()
+    print(test_select_user)
+
