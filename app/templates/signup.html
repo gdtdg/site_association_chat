@@ -13,19 +13,42 @@
 <body>
 <div class="page_width">
     <header>
-        {% set active_page = "profile" %}
+        {% set active_page = "signup" %}
         {% include 'header.html' %}
     </header>
     <section>
-        <h1>Votre profil {{current_user.name}}</h1>
+        <h1>Créer un compte</h1>
         <div class="separateur-full"></div>
         </br>
-        <div style="text-align: center">
-        <a href="http://127.0.0.1:5000/ajouter_chat" class="btn btn-secondary" style="padding-top: 20px"><h3>Ajouter un chat</h3></a>
-        <a href="http://127.0.0.1:5000/messages_contact" class="btn btn-secondary" style="padding-top: 20px"><h3>Visualiser les messages</h3></a>
-            <a href="http://127.0.0.1:5000/logout" class="btn btn-secondary" style="padding-top: 20px"><h3>Se déconnecter</h3></a>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="notification is-danger">
+            {{ messages[0] }} Go to <a href="{{ url_for('login') }}">login page</a>.
         </div>
-        </br>
+        {% endif %}
+        {% endwith %}
+        <form method="POST" action="{{url_for('signup_post')}}">
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="email" name="email" placeholder="Email" autofocus="" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="text" name="name" placeholder="Name" autofocus="" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="password" name="password" placeholder="Password" required>
+                </div>
+            </div>
+
+            <button class="button is-block is-info is-large is-fullwidth">Sign Up</button>
+        </form>
+
     </section>
     <footer>
         {% include 'footer.html' %}

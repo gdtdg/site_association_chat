@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light mb-3">
     <a class="navbar-brand" href="http://127.0.0.1:5000/index">
         <img src="{{ url_for('static', filename='website_images/cat_ico.png')}}" width="80" height="80" alt="cat icon"/>
-        Association des chats de la street
+        Association Les chats de la street
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
         <span class="navbar-toggler-icon"></span>
@@ -26,9 +26,22 @@
             <li class="nav-item {{'active' if active_page == 'a_propos' else ''}}">
                 <a class="nav-link" href="http://127.0.0.1:5000/a_propos">À propos</a>
             </li>
+            {% if not current_user.is_authenticated %}
             <li class="nav-item {{'active' if active_page == 'login' else ''}}">
-                <a class="nav-link" href="http://127.0.0.1:5000/login">Se connecter</a>
+                <a class="nav-link" href="http://127.0.0.1:5000/login">Login</a>
             </li>
+             <li class="nav-item {{'active' if active_page == 'signup' else ''}}">
+                <a class="nav-link" href="http://127.0.0.1:5000/signup">Sign up</a>
+            </li>
+            {% endif %}
+            {% if current_user.is_authenticated %}
+             <li class="nav-item {{'active' if active_page == 'profile' else ''}}">
+                <a class="nav-link" href="http://127.0.0.1:5000/profile">Profile ({{current_user.name}})</a>
+            </li>
+             <li class="nav-item {{'active' if active_page == 'logout' else ''}}">
+                <a class="nav-link" href="http://127.0.0.1:5000/logout">Logout</a>
+            </li>
+            {% endif %}
         </ul>
     </div>
 </nav>

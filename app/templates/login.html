@@ -20,14 +20,32 @@
         <h1>Se connecter</h1>
         <div class="separateur-full"></div>
         </br>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="notification is-danger">
+            {{ messages[0] }}
+        </div>
+        {% endif %}
+        {% endwith %}
+        <form method="POST" action="{{url_for('login_post')}}">
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="email" name="email" placeholder="Your Email" autofocus="" required>
+                </div>
+            </div>
 
-        <form method="POST" action="{{url_for('login')}}">
-            <p><label for="username">Username</label></p>
-            <p><input type="text" name="username" id="username" maxlength="60" required /></p>
-
-            <p><label for="password">Password</label></p>
-            <p><input type="password" name="password" id="password" maxlength="60" required /></p>
-            <input type="submit" name="" value="Se connecter" />
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="password" name="password" placeholder="Your Password" required>
+                </div>
+            </div>
+            <div class="field">
+                <label class="checkbox">
+                    <input type="checkbox">
+                    Remember me
+                </label>
+            </div>
+            <button class="button is-block is-info is-large is-fullwidth">Login</button>
         </form>
 
     </section>

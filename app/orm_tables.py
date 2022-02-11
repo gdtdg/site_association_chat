@@ -1,17 +1,29 @@
 from flask import Flask
+from flask_login import UserMixin, LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
+app.config['SECRET_KEY'] = 'secret-key-goes-here'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mariadb://root:root@localhost:3306/assoc_chat'
 
 db = SQLAlchemy(app)
 
+login_manager = LoginManager()
+login_manager.login_view = 'auth.login'
+login_manager.init_app(app)
 
-class User(db.Model):
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(100), unique=True, nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    password = db.Column(db.String(100), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
 
 
 class Chat(db.Model):
@@ -42,5 +54,3 @@ class MessageContact(db.Model):
     objet = db.Column(db.String(100), nullable=False)
     message = db.Column(db.String(3000), nullable=False)
     timestamp = db.Column(db.TIMESTAMP, nullable=False)
-
-

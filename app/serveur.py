@@ -1,11 +1,14 @@
 import os
 
+from flask import flash
 from flask import redirect
 from flask import render_template
 from flask import request
 from flask import url_for
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import login_user, login_required, logout_user, current_user
 
-from app.orm_insert_delete import insert, delete
+from app.orm_insert_delete import db_insert, db_delete
 from app.orm_tables import db, app, Chat, MessageContact, User
 
 
@@ -65,8 +68,8 @@ def adoptions():
 def adoption(id_chat):
     my_cat = db.session.query(Chat).filter_by(id=id_chat).first()
     carousel_cat = list(my_cat.carousel.split(','))
-    carousel_cat_len = len(carousel_cat)          # Obligé de garder cette variable pour que le carousel fonctionne.
-                                                  # Sinon la class 'carousel-item active' bloque le carousel.
+    carousel_cat_len = len(carousel_cat)  # Obligé de garder cette variable pour que le carousel fonctionne.
+    # Sinon la class 'carousel-item active' bloque le carousel.
     return render_template('fiche_detaillee.html', my_cat=my_cat, carousel_cat_len=carousel_cat_len,
                            carousel_cat=carousel_cat)
 
@@ -85,54 +88,68 @@ def form():
     message_insert = MessageContact(nom=nom, prenom=prenom, adresse=adresse,
                                     code_postal=code_postal, ville=ville, email=email,
                                     telephone=telephone, objet=objet, message=message)
-    insert(message_insert)
+    db_insert(message_insert)
     return render_template('message_contact_envoye.html', message_insert=message_insert)
 
 
-session = []
-
-
-@app.route('/login/', methods=["GET"])
+@app.route('/login/')
 def login():
-    if len(session) != 0:
-        return redirect(url_for('profile'))
     return render_template('login.html')
 
 
-@app.route('/login/', methods=["POST"])
+@app.route('/login_post/', methods=['POST'])
 def login_post():
-    current_user = request.form.get("username")
-    current_password = request.form.get("password")
-    if db.session.query(User).filter_by(username=current_user).filter_by(password=current_password).first():
-        if current_user not in session:
-            session.append(current_user)
-        return redirect(url_for('profile'))
-    return redirect(url_for('login'))
+    email = request.form.get('email')
+    password = request.form.get('password')
+    remember = True if request.form.get('remember') else False
+    user = User.query.filter_by(email=email).first()
+    if not user or not check_password_hash(user.password, password):
+        flash("L'utilisateur ou le mot de passe est invalide.")
+        return redirect(url_for('login'))
+    login_user(user, remember=remember)
+    return redirect(url_for('profile'))
+
+
+@app.route('/signup/')
+def signup():
+    return render_template('signup.html')
+
+
+@app.route('/signup_post/', methods=["POST"])
+def signup_post():
+    email = request.form.get('email')
+    name = request.form.get('name')
+    password = request.form.get('password')
+    user = User.query.filter_by(email=email).first()
+    if user:
+        flash("L'adresse émail existe déjà.")
+        return redirect(url_for('signup'))
+    new_user = User(email=email, name=name, password=generate_password_hash(password))
+    db_insert(new_user)
+    return render_template('compte_cree.html', name=name)
 
 
 @app.route('/profile/')
+@login_required
 def profile():
-    if len(session) != 0:
-        return render_template('profile.html')
-    else:
-        return render_template('login.html')
+    return render_template('profile.html')
 
 
 @app.route('/logout/')
+@login_required
 def logout():
-    session.clear()
+    logout_user()
     return render_template('logout.html')
 
 
 @app.route('/ajouter_chat/')
+@login_required
 def ajouter_chat():
-    if len(session) != 0:
-        return render_template('ajouter_chat.html')
-    else:
-        return render_template('login.html')
+    return render_template('ajouter_chat.html')
 
 
 @app.route('/chat_ajoute/', methods=["POST"])
+@login_required
 def chat_ajoute():
     nom = request.form.get("nom")
     sexe = request.form.get("sexe")
@@ -151,22 +168,21 @@ def chat_ajoute():
                        sterilisation=sterilisation, identification=identification,
                        deparasitage=deparasitage, commentaire=commentaire,
                        photo=photo, carousel=carousel)
-    insert(chat_insert)
+    db_insert(chat_insert)
     return render_template('chat_ajoute.html', chat_insert=chat_insert)
 
 
 @app.route('/messages_contact/')
+@login_required
 def messages_contact():
-    if len(session) != 0:
-        messages_list = db.session.query(MessageContact).all()
-        return render_template('messages_contact.html', messages_list=messages_list)
-    else:
-        return render_template('login.html')
+    messages_list = db.session.query(MessageContact).all()
+    return render_template('messages_contact.html', messages_list=messages_list)
 
 
 @app.route('/message_supprime/', methods=["POST"])
+@login_required
 def message_supprime():
     id_message = request.form.get("id_message")
     message_delete = db.session.query(MessageContact).filter_by(id=id_message).first()
-    delete(message_delete)
+    db_delete(message_delete)
     return render_template('message_supprime.html', message_delete=message_delete)

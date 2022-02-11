@@ -13,19 +13,16 @@
 <body>
 <div class="page_width">
     <header>
-        {% set active_page = "profile" %}
+        {% set active_page = "signup" %}
         {% include 'header.html' %}
     </header>
     <section>
-        <h1>Votre profil {{current_user.name}}</h1>
+        <h1>Merci {{name}}, votre compte a été créé.</h1>
         <div class="separateur-full"></div>
         </br>
         <div style="text-align: center">
-        <a href="http://127.0.0.1:5000/ajouter_chat" class="btn btn-secondary" style="padding-top: 20px"><h3>Ajouter un chat</h3></a>
-        <a href="http://127.0.0.1:5000/messages_contact" class="btn btn-secondary" style="padding-top: 20px"><h3>Visualiser les messages</h3></a>
-            <a href="http://127.0.0.1:5000/logout" class="btn btn-secondary" style="padding-top: 20px"><h3>Se déconnecter</h3></a>
+            <a href="http://127.0.0.1:5000/login" class="btn btn-secondary" style="padding-top: 20px"><h3>Aller à la page de login</h3></a>
         </div>
-        </br>
     </section>
     <footer>
         {% include 'footer.html' %}
