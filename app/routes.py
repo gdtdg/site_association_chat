@@ -1,15 +1,25 @@
 import os
 
-from flask import flash
-from flask import redirect
-from flask import render_template
-from flask import request
-from flask import url_for
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask import flash, redirect, render_template, request, url_for
 from flask_login import login_user, login_required, logout_user, current_user
+from werkzeug.security import generate_password_hash, check_password_hash
 
-from app.orm_insert_delete import db_insert, db_delete
-from app.orm_tables import db, app, Chat, MessageContact, User
+from app.app import login_manager, app, db, db_insert, db_delete
+from app.models.Chat import Chat
+from app.models.MessageContact import MessageContact
+from app.models.Role import Role
+from app.models.User import User
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+
+def my_admin_required(f):
+    def wrapper(*args, **kwargs):
+        print("Debug me")
+        return f(*args, **kwargs)
 
 
 @app.route('/')
@@ -122,7 +132,7 @@ def signup_post():
     password = request.form.get('password')
     user = User.query.filter_by(email=email).first()
     if user:
-        flash("L'adresse émail existe déjà.")
+        flash("L'adresse email existe déjà.")
         return redirect(url_for('signup'))
     new_user = User(email=email, name=name, password=generate_password_hash(password))
     db_insert(new_user)
@@ -133,6 +143,12 @@ def signup_post():
 @login_required
 def profile():
     return render_template('profile.html')
+
+
+@app.route('/profile_guest/')
+@login_required
+def profile_invite():
+    return render_template('profile_invite.html')
 
 
 @app.route('/logout/')
