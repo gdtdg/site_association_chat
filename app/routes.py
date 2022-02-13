@@ -1,13 +1,14 @@
 import os
 
 from flask import flash, redirect, render_template, request, url_for
-from flask_login import login_user, login_required, logout_user, current_user
+from flask_login import login_user, login_required, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app.app import login_manager, app, db, db_insert, db_delete
 from app.models.Chat import Chat
 from app.models.MessageContact import MessageContact
 from app.models.Role import Role
+from app.models.UserRoles import UserRoles
 from app.models.User import User
 
 
