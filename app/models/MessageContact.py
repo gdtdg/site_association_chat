@@ -1,3 +1,5 @@
+from sqlalchemy import func
+
 from app.app import db
 
 
@@ -12,4 +14,4 @@ class MessageContact(db.Model):
     telephone = db.Column(db.String(100), nullable=True)
     objet = db.Column(db.String(100), nullable=False)
     message = db.Column(db.String(3000), nullable=False)
-    timestamp = db.Column(db.TIMESTAMP, nullable=True)
+    timestamp = db.Column(db.TIMESTAMP, nullable=True, default=func.now())
