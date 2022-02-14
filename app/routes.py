@@ -1,15 +1,16 @@
 import os
+from functools import wraps
 
 from flask import flash, redirect, render_template, request, url_for
-from flask_login import login_user, login_required, logout_user
+from flask_login import login_user, login_required, logout_user, utils
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app.app import login_manager, app, db, db_insert, db_delete
 from app.models.Chat import Chat
 from app.models.MessageContact import MessageContact
 from app.models.Role import Role
-from app.models.UserRoles import UserRoles
 from app.models.User import User
+from app.models.UserRoles import UserRoles
 
 
 @login_manager.user_loader
@@ -17,10 +18,23 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-def my_admin_required(f):
-    def wrapper(*args, **kwargs):
-        print("Debug me")
-        return f(*args, **kwargs)
+def role_required(role_name):
+    def admin_required(func):
+        @wraps(func)
+        def decorated_view(*args, **kwargs):
+            current_user = utils.current_user
+            if not current_user.is_authenticated:
+                return app.login_manager.unauthorized()
+            else:
+                user_roles_id = UserRoles.query.filter_by(user_id=current_user.id).all()
+                roles = [Role.query.filter_by(id=user_role_id.role_id).first() for user_role_id in user_roles_id]
+                if any(role.name == role_name for role in roles):
+                    return func(*args, **kwargs)
+            return app.login_manager.unauthorized()
+
+        return decorated_view
+
+    return admin_required
 
 
 @app.route('/')
@@ -161,12 +175,14 @@ def logout():
 
 @app.route('/ajouter_chat/')
 @login_required
+@role_required('Admin')
 def ajouter_chat():
     return render_template('ajouter_chat.html')
 
 
 @app.route('/chat_ajoute/', methods=["POST"])
 @login_required
+@role_required('Admin')
 def chat_ajoute():
     nom = request.form.get("nom")
     sexe = request.form.get("sexe")
@@ -191,6 +207,7 @@ def chat_ajoute():
 
 @app.route('/messages_contact/')
 @login_required
+@role_required('Admin')
 def messages_contact():
     messages_list = db.session.query(MessageContact).all()
     return render_template('messages_contact.html', messages_list=messages_list)
@@ -198,6 +215,7 @@ def messages_contact():
 
 @app.route('/message_supprime/', methods=["POST"])
 @login_required
+@role_required('Admin')
 def message_supprime():
     id_message = request.form.get("id_message")
     message_delete = db.session.query(MessageContact).filter_by(id=id_message).first()
