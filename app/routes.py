@@ -1,11 +1,13 @@
 import os
 from functools import wraps
+from time import sleep
 
 from flask import flash, redirect, render_template, request, url_for
 from flask_login import login_user, login_required, logout_user, utils
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 
-from app.app import login_manager, app, db, db_insert, db_delete
+from app.app import login_manager, app, db, db_insert, db_delete, save_image
 from app.models.Chat import Chat
 from app.models.MessageContact import MessageContact
 from app.models.Role import Role
@@ -194,14 +196,32 @@ def chat_ajoute():
     identification = request.form.get("identification")
     deparasitage = request.form.get("deparasitage")
     commentaire = request.form.get("commentaire")
-    photo = request.form.get("photo")
-    carousel = request.form.getlist("carousel")
+
+    photo = request.files.get('photo')
+    carousel = request.files.getlist('carousel')
+    carousel = [file for file in carousel if file.mimetype != 'application/octet-stream']
+    if photo.mimetype != 'application/octet-stream':
+        carousel.insert(0, photo)
+
+    photo_path = ''
+    carousel_paths = ''
+    try:
+        photo_path = secure_filename(photo.filename)
+        carousel_paths = ','.join(secure_filename(file.filename) for file in carousel)
+    except Exception:
+        print('No cat pictures')
+
     chat_insert = Chat(nom=nom, sexe=sexe, naissance=naissance,
                        race=race, robe=robe, vaccin=vaccin,
                        sterilisation=sterilisation, identification=identification,
                        deparasitage=deparasitage, commentaire=commentaire,
-                       photo=photo, carousel=carousel)
+                       photo=photo_path, carousel=carousel_paths)
     db_insert(chat_insert)
+
+    # save carousel
+    for image in carousel:
+        save_image(image)
+
     return render_template('chat_ajoute.html', chat_insert=chat_insert)
 
 
