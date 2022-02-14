@@ -1,10 +1,10 @@
+import toml as toml
 from flask import Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret-key-goes-here'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mariadb://root:root@localhost:3306/assoc_chat'
+app.config.from_file("config.toml", load=toml.load)
 db = SQLAlchemy(app)
 
 login_manager = LoginManager()
