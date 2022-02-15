@@ -1,9 +1,8 @@
 import os
 from functools import wraps
-from time import sleep
 
 from flask import flash, redirect, render_template, request, url_for
-from flask_login import login_user, login_required, logout_user, utils
+from flask_login import login_user, login_required, logout_user, utils, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 
@@ -159,7 +158,8 @@ def signup_post():
 @app.route('/profile/')
 @login_required
 def profile():
-    return render_template('profile.html')
+    role = db.session.query(UserRoles).filter_by(user_id=current_user.id).first()
+    return render_template('profile.html', role=role.role_id)
 
 
 @app.route('/profile_guest/')

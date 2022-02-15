@@ -1,3 +1,3 @@
 SECRET_KEY = 'secret-key-goes-here'
-SQLALCHEMY_DATABASE_URI = 'mysql://user:password@localhost:3306/assoc_chat'
+SQLALCHEMY_DATABASE_URI = 'mariadb://root:root@localhost:3306/assoc_chat'
 UPLOAD_FOLDER = 'app/static/adoptions_images/'
