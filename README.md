@@ -21,4 +21,4 @@ Then replace `config_template.toml` name by `config.toml`.
 
 Setup the flask environment: `export FLASK_APP='app/routes'`
 
-then run the flask server `flask run`
+then start the flask server: `flask run`
