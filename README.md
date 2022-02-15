@@ -12,11 +12,13 @@ Python packages required : ```pip install -r requirements.txt```
 
 ## Instructions
 
-Install the database?
-TODO
+You need to change in `config_template.toml`: the`secret key`, the `connection string to database`
+and the `upload folder` to receive cats images.
+
+Then replace `config_template.toml` name by `config.toml`.
 
 #### How to run the flask server:
 
-Setup the flask environment for Windows: `$env:FLASK_APP='app/serveur'`
+Setup the flask environment: `export FLASK_APP='app/routes'`
 
-then run the flask server `py -m flask run`
+then run the flask server `flask run`
