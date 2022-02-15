@@ -162,12 +162,6 @@ def profile():
     return render_template('profile.html', role=role.role_id)
 
 
-@app.route('/profile_guest/')
-@login_required
-def profile_invite():
-    return render_template('profile_invite.html')
-
-
 @app.route('/logout/')
 @login_required
 def logout():
