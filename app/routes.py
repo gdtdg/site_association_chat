@@ -152,6 +152,7 @@ def signup_post():
         return redirect(url_for('signup'))
     new_user = User(email=email, name=name, password=generate_password_hash(password))
     db_insert(new_user)
+    # For every new user we add a guest role in UserRoles table:
     new_user_role = UserRoles(user_id=new_user.id, role_id='2')
     db_insert(new_user_role)
     return render_template('compte_cree.html', name=name)
@@ -160,6 +161,7 @@ def signup_post():
 @app.route('/profile/')
 @login_required
 def profile():
+    # To show the role (1 or 2) in the html template:
     role = db.session.query(UserRoles).filter_by(user_id=current_user.id).first()
     return render_template('profile.html', role=role.role_id)
 
@@ -203,6 +205,7 @@ def chat_ajoute():
     carousel_paths = ''
     try:
         photo_path = secure_filename(photo.filename)
+        # We want a string of images name separated by ',':
         carousel_paths = ','.join(secure_filename(file.filename) for file in carousel)
     except Exception:
         print('No cat pictures')
