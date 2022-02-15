@@ -152,6 +152,8 @@ def signup_post():
         return redirect(url_for('signup'))
     new_user = User(email=email, name=name, password=generate_password_hash(password))
     db_insert(new_user)
+    new_user_role = UserRoles(user_id=new_user.id, role_id='2')
+    db_insert(new_user_role)
     return render_template('compte_cree.html', name=name)
 
 
