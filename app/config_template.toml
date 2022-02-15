@@ -1,0 +1,3 @@
+SECRET_KEY = 'secret-key-goes-here'
+SQLALCHEMY_DATABASE_URI = 'connection-string-goes-here'
+UPLOAD_FOLDER = 'upload-folder-goes-here'
