@@ -244,5 +244,6 @@ def messages_contact():
 def message_supprime():
     id_message = request.form.get("id_message")
     message_delete = db.session.query(MessageContact).filter_by(id=id_message).first()
-    db_delete(message_delete)
+    # Demo version, on ne supprime pas le message de la DB:
+    # db_delete(message_delete)
     return render_template('message_supprime.html', message_delete=message_delete)
