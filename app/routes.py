@@ -13,7 +13,6 @@ from app.models.Role import Role
 from app.models.User import User
 from app.models.UserRoles import UserRoles
 
-# test des branches
 
 @login_manager.user_loader
 def load_user(user_id):
