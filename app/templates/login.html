@@ -27,6 +27,18 @@
         </div>
         {% endif %}
         {% endwith %}
+
+        <div class="alert alert-success" role="alert">
+             Demo version:
+        </div>
+        <div class="alert alert-success" role="alert">
+            <em>Admin role</em>  <strong>email:</strong> my_user_admin@test.com <strong>password:</strong> my_password
+        </div>
+        <div class="alert alert-success" role="alert">
+             <em>Guest role</em>  <strong>email:</strong> my_user_guest@test.com <strong>password:</strong> my_password
+        </div>
+
+
         <form method="POST" action="{{url_for('login_post')}}">
             <div class="field">
                 <div class="control">

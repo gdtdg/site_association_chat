@@ -153,7 +153,7 @@ def signup_post():
     if user:
         flash("L'adresse email existe déjà.")
         return redirect(url_for('signup'))
-    # Demo version:
+    # Demo version, on ne crée aucun user ni rôle:
     # new_user = User(email=email, name=name, password=generate_password_hash(password))
     # db_insert(new_user)
     # For every new user we add a guest role in UserRoles table:
@@ -220,6 +220,7 @@ def chat_ajoute():
                        sterilisation=sterilisation, identification=identification,
                        deparasitage=deparasitage, commentaire=commentaire,
                        photo=photo_path, carousel=carousel_paths)
+
     # Demo version, on n'insère pas le chat dans la DB:
     # db_insert(chat_insert)
 
