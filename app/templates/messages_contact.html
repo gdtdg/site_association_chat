@@ -50,7 +50,7 @@
         <form method="POST" action="{{url_for('message_supprime')}}">
             <p><label for="id_message">Veuillez indiquer le numéro du message à supprimer:</label></p>
             <p><input type="number" name="id_message" id="id_message" maxlength="60" min="1" step="1" required /></p>
-            <input type="submit" class="btn btn-secondary" style="font-size: 1.3em; font-family: 'Segoe Script'" name="" value="Supprimer le message" />
+            <input type="submit" class="btn btn-secondary" style="font-size: 1.3em; font-family: 'Segoe Script'" name="" value="Supprimer le message" disabled />
         </form>
 
         <div class="separateur-full"></div>
