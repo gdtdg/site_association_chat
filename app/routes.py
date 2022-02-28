@@ -112,10 +112,12 @@ def form():
     telephone = request.form.get("telephone")
     objet = request.form.get("objet")
     message = request.form.get("message")
+    # Demo version, on conserve message_insert parce qu'on l'utilise dans le render template:
     message_insert = MessageContact(nom=nom, prenom=prenom, adresse=adresse,
                                     code_postal=code_postal, ville=ville, email=email,
                                     telephone=telephone, objet=objet, message=message)
-    db_insert(message_insert)
+    # Demo version, on n'insère pas le message dans la DB:
+    #db_insert(message_insert)
     return render_template('message_contact_envoye.html', message_insert=message_insert)
 
 
