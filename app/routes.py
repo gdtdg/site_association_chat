@@ -214,12 +214,14 @@ def chat_ajoute():
     except Exception:
         print('No cat pictures')
 
+    # Demo version, on conserve chat_insert car il est utilisé dans le render template.
     chat_insert = Chat(nom=nom, sexe=sexe, naissance=naissance,
                        race=race, robe=robe, vaccin=vaccin,
                        sterilisation=sterilisation, identification=identification,
                        deparasitage=deparasitage, commentaire=commentaire,
                        photo=photo_path, carousel=carousel_paths)
-    db_insert(chat_insert)
+    # Demo version, on n'insère pas le chat dans la DB:
+    # db_insert(chat_insert)
 
     # save carousel
     for image in carousel:
